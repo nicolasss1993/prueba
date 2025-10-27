@@ -1,0 +1,48 @@
+{% extends "coder/index.html" %}
+{% block title %}Detalle del Curso {{ curso.nombre_curso }}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <h2 class="mb-3">Curso: {{ curso.nombre_curso }}</h2>
+  <p><strong>Código:</strong> {{ curso.code }}</p>
+  <p><strong>Comisión:</strong> {{ curso.comision }}</p>
+  <p><strong>Fecha de creación:</strong> {{ curso.datetime_added|date:"d/m/Y H:i" }}</p>
+
+  <hr class="my-4">
+
+  <h4>Estudiantes inscriptos en este curso:</h4>
+  {% if curso.estudiantes.all %}
+    <div class="table-responsive mt-3">
+      <table class="table table-striped table-hover">
+        <thead class="table-primary">
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Legajo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for estudiante in curso.estudiantes.all %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ estudiante.nombre }}</td>
+            <td>{{ estudiante.apellido }}</td>
+            <td>{{ estudiante.email }}</td>
+            <td>{{ estudiante.nro_legajo }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="alert alert-info mt-3">No hay estudiantes registrados en este curso.</div>
+  {% endif %}
+
+  <div class="mt-4">
+    <a href="{% url 'curso_edit' curso.code %}" class="btn btn-warning text-white">Editar curso</a>
+    <a href="{% url 'curso_list' %}" class="btn btn-secondary">Volver al listado</a>
+  </div>
+</div>
+{% endblock %}

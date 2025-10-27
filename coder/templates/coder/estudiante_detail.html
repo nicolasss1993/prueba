@@ -1,0 +1,22 @@
+{% extends "coder/index.html" %}
+
+{% block title %}Detalle de Estudiante | Mi Proyecto Django{% endblock %}
+{% block active_estudiantes %}active{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="card shadow p-4 mx-auto" style="max-width: 600px;">
+    <h3 class="text-center mb-3">{{ estudiante.nombre }} {{ estudiante.apellido }}</h3>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><strong>Email:</strong> {{ estudiante.email }}</li>
+      <li class="list-group-item"><strong>Legajo:</strong> {{ estudiante.nro_legajo }}</li>
+      <li class="list-group-item"><strong>Fecha de nacimiento:</strong> {{ estudiante.fecha_de_nacimiento|date:"d/m/Y" }}</li>
+      <li class="list-group-item"><strong>Fecha de creación:</strong> {{ estudiante.fecha_de_creacion|date:"d/m/Y H:i" }}</li>
+    </ul>
+    <div class="text-center mt-4">
+      <a href="{% url 'estudiante_edit' estudiante.pk %}" class="btn btn-warning text-white">Editar</a>
+      <a href="{% url 'estudiante_list' %}" class="btn btn-secondary">Volver al listado</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
